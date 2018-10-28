@@ -12,10 +12,13 @@ class Rover {
     if (['L', 'R'].includes(instr)) {
       this.direction = newDirection(this.direction, instr);
     } else if (instr === 'M') {
-      if (this.direction === 'N') this.y += 1;
-      else if (this.direction === 'S') this.y -= 1;
-      else if (this.direction === 'E') this.x += 1;
-      else if (this.direction === 'W') this.x -= 1;
+      const { x, y } = move(
+        this.direction,
+        { x: this.x, y: this.y },
+        this.plateau
+      );
+      this.x = x;
+      this.y = y;
     }
   }
 }
@@ -24,7 +27,19 @@ const newDirection = (curr, instr) => {
   let index = DIRECTIONS.indexOf(curr);
   index += (instr === 'L') ? -1 : 1;
   index += DIRECTIONS.length;
-  return DIRECTIONS[index%DIRECTIONS.length];
+  return DIRECTIONS[index % DIRECTIONS.length];
+}
+
+const move = (direction, { x, y }, plateau) => {
+  if (direction === 'N') y += 1;
+  else if (direction === 'S') y -= 1;
+  else if (direction === 'E') x += 1;
+  else if (direction === 'W') x -= 1;
+  if (x < 0 || x > plateau.width ||
+    y < 0 || y > plateau.height) {
+    throw new Error("Out of plateau");
+  }
+  return { x, y };
 }
 
 module.exports = Rover;

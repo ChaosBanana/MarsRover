@@ -11,11 +11,8 @@ const handleInput = (input) => {
   for (let i = 0; i < rovers.length; i++) {
     const rover = rovers[i];
     const moves = roverMoves[i];
-    console.log("Rover: ", JSON.stringify(rover),
-      "Moves:", moves);
     for (let move of moves) {
       rover.move(move)
-      console.log("Move: ", move, "Rover:", JSON.stringify(rover));
     }
   }
 
@@ -25,7 +22,7 @@ const handleInput = (input) => {
 
 const createPlateau = (plateauInput) => {
   const plateauCmd = plateauInput.split(' ');
-  const plateau = new Plateau(plateauCmd[0], plateauCmd[1]);
+  const plateau = new Plateau(parseInt(plateauCmd[0]), parseInt(plateauCmd[1]));
   return plateau;
 }
 
