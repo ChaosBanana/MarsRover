@@ -1,7 +1,7 @@
 const handleInput = require('./index');
 
 
-test('adds 1 + 2 to equal 3', () => {
+test('move two rovers', () => {
   expect(handleInput(`5 5
 1 2 N
 LMLMLMLMM
